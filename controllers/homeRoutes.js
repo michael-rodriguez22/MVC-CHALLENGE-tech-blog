@@ -1,6 +1,6 @@
 const router = require("express").Router()
 
-router.get("/", (req, res) => res.send("HOME"))
+router.get("/", (req, res) => res.render("homepage"))
 
 router.get("/login", (req, res) =>
   req.session.loggedIn ? res.redirect("/") : res.send("LOGIN")
