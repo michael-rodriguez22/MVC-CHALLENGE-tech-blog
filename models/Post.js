@@ -28,11 +28,13 @@ Post.init(
         model: "user",
         key: "id",
       },
+      allowNull: false,
     },
   },
   {
     sequelize,
     freezeTableName: true,
+    underscored: true,
     modelName: "post",
   }
 )

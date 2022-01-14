@@ -32,7 +32,7 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [6, 255],
+        len: [6],
       },
     },
   },
@@ -43,16 +43,20 @@ User.init(
         return newUserData
       },
       async beforeUpdate(updatedUserData) {
-        updatedUserData.password = await bcrypt.hash(
-          updatedUserData.password,
-          10
-        )
+        // if password is being updated, hash it with bcrypt before saving to db
+        if (updatedUserData._changed.has("password")) {
+          updatedUserData.password = await bcrypt.hash(
+            updatedUserData.password,
+            10
+          )
+        }
         return updatedUserData
       },
     },
     sequelize,
     timestamps: false,
     freezeTableName: true,
+    underscored: true,
     modelName: "user",
   }
 )
