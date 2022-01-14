@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
     .then(dbUserData => res.status(200).json(dbUserData))
     .catch(err => {
       console.log(err)
-      res.status(500).json(err)
+      return res.status(500).json(err)
     })
 })
 
@@ -40,7 +40,7 @@ router.get("/:id", (req, res) => {
     })
     .catch(err => {
       console.log(err)
-      res.status(500).json(err)
+      return res.status(500).json(err)
     })
 })
 
@@ -51,13 +51,10 @@ router.post("/", (req, res) => {
     email: req.body.email,
     password: req.body.password,
   })
-    .then(dbUserData => {
-      // @todo - update req.session
-      res.status(200).json(dbUserData)
-    })
+    .then(dbUserData => res.status(200).json(dbUserData))
     .catch(err => {
       console.log(err)
-      res.status(500).json(err)
+      return res.status(500).json(err)
     })
 })
 
@@ -69,37 +66,41 @@ router.post("/login", (req, res) => {
     },
   })
     .then(dbUserData => {
-      if (!dbUserData) {
-        res.status(400).json({ message: "Incorrect login credentials" })
-        return
-      }
+      if (!dbUserData)
+        return res.status(400).json({ message: "Incorrect login credentials" })
 
       const validPassword = dbUserData.checkPassword(req.body.password)
 
-      if (!validPassword)
-        return res.status(400).json({ message: "Incorrect login credentials" })
+      return !validPassword
+        ? res.status(400).json({ message: "Incorrect login credentials" })
+        : req.session.save(() => {
+            req.session.user_id = dbUserData.id
+            req.session.username = dbUserData.username
+            req.session.loggedIn = true
 
-      userDataCopy = {
-        id: dbUserData.id,
-        username: dbUserData.username,
-        email: dbUserData.email,
-        // don't send hashed password back in response
-      }
-      // @todo - update req.session
-      res.json({ user: userDataCopy, message: "You are now logged in" })
+            userDataCopy = {
+              id: dbUserData.id,
+              username: dbUserData.username,
+              email: dbUserData.email,
+              // don't send hashed password back in response
+            }
+
+            return res
+              .status(200)
+              .json({ user: userDataCopy, message: "You are now logged in" })
+          })
     })
     .catch(err => {
       console.log(err)
-      res.status(500).json(err)
+      return res.status(500).json(err)
     })
 })
 
-// @todo - implement req.session
-// router.post("/logout", (req, res) => {
-//   return req.session.loggedIn
-//     ? res.session.destroy(() => res.status(204).end())
-//     : res.status(404).end()
-// })
+router.post("/logout", (req, res) => {
+  return req.session.loggedIn === true
+    ? req.session.destroy(() => res.status(204).end())
+    : res.status(404).end()
+})
 
 router.put("/:id", (req, res) => {
   // expects { username: String, password: String }
@@ -116,7 +117,7 @@ router.put("/:id", (req, res) => {
     })
     .catch(err => {
       console.log(err)
-      res.status(500).json(err)
+      return res.status(500).json(err)
     })
 })
 
@@ -133,7 +134,7 @@ router.delete("/:id", (req, res) => {
     })
     .catch(err => {
       console.log(err)
-      res.status(500).json(err)
+      return res.status(500).json(err)
     })
 })
 
