@@ -5,11 +5,12 @@ const path = require("path")
 const app = express()
 const PORT = process.env.PORT | 3003
 
-const routes = require("./controllers")
-app.use(routes)
-
 const sequelize = require("./config/connection")
 
-sequelize.sync({ forge: true }).then(() => {
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(require("./controllers"))
+
+sequelize.sync({ force: true }).then(() => {
   app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
 })
