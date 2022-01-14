@@ -6,7 +6,7 @@ const withAuth = require("../../utils/auth")
 // get all users
 router.get("/", (req, res) => {
   Post.findAll({
-    attributes: ["id", "title", "body", "created_at"],
+    attributes: ["id", "post_title", "post_body", "created_at"],
     include: [
       {
         model: Comment,
@@ -34,7 +34,7 @@ router.get("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ["id", "title", "body", "created_at"],
+    attributes: ["id", "post_title", "post_body", "created_at"],
     include: [
       {
         model: Comment,
@@ -62,10 +62,10 @@ router.get("/:id", (req, res) => {
 })
 
 router.post("/", withAuth, (req, res) => {
-  // expects { title: String, body: String }
+  // expects { post_title: String, post_body: String }
   Post.create({
-    title: req.body.title,
-    body: req.body.body,
+    post_title: req.body.post_title,
+    post_body: req.body.post_body,
     user_id: req.session.user_id,
   })
     .then(dbPostData => res.status(200).json(dbPostData))
@@ -82,12 +82,15 @@ router.put("/:id", withAuth, (req, res) => {
       individualHooks: true,
       where: {
         id: req.params.id,
+        user_id: req.session.user_id,
       },
     }
   )
     .then(dbPostData => {
       return !dbPostData[0] > 0
-        ? res.status(404).json({ message: "No post found with this id" })
+        ? res
+            .status(404)
+            .json({ message: "No post of yours found with this id" })
         : res.status(200).json(dbPostData)
     })
     .catch(err => {
@@ -100,11 +103,14 @@ router.delete("/:id", withAuth, (req, res) => {
   Post.destroy({
     where: {
       id: req.params.id,
+      user_id: req.session.user_id,
     },
   })
     .then(dbPostData => {
       return !dbPostData
-        ? res.status(404).json({ message: "No post found with this id" })
+        ? res
+            .status(404)
+            .json({ message: "No post of yours found with this id" })
         : res.status(200).json(dbPostData)
     })
     .catch(err => {
