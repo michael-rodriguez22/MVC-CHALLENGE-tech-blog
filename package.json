@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "seed": "node seeds/",
-    "clear-tables": "node utils/clearTables.js"
+    "clear-tables": "node utils/clearTables.js",
+    "build-tailwind": "npx tailwindcss -i tailwind.src.css -o ./public/style.css"
   },
   "keywords": [
     "express",
