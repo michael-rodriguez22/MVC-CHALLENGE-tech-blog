@@ -103,7 +103,7 @@ router.post("/logout", (req, res) => {
 })
 
 router.put("/:id", (req, res) => {
-  // expects { username: String, password: String }
+  // expects { username?: String, email?: String, password?: String }
   User.update(req.body, {
     individualHooks: true,
     where: {
@@ -111,7 +111,7 @@ router.put("/:id", (req, res) => {
     },
   })
     .then(dbUserData => {
-      return !dbUserData
+      return !dbUserData[0] > 0
         ? res.status(404).json({ message: "No user found with this id" })
         : res.status(200).json(dbUserData)
     })
