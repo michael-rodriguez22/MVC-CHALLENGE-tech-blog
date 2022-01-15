@@ -37,3 +37,11 @@
 .btn {
   @apply py-2 rounded-lg bg-stone-700 text-white text-lg transition-colors duration-300;
 }
+
+.btn-violet {
+  @apply hover:bg-violet-400 hover:text-stone-800 focus:bg-violet-400 focus:text-stone-800;
+}
+
+.btn-rose {
+  @apply hover:bg-rose-400 hover:text-stone-800 focus:bg-rose-400 focus:text-stone-800;
+}

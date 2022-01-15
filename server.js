@@ -6,7 +6,8 @@ const path = require("path")
 const app = express()
 const PORT = process.env.PORT | 3003
 
-const hbs = exphbs.create()
+const helpers = require("./utils/helpers")
+const hbs = exphbs.create({ helpers })
 app.engine("handlebars", hbs.engine)
 app.set("view engine", "handlebars")
 
