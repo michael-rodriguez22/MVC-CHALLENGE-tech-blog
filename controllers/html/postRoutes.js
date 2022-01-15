@@ -1,5 +1,5 @@
 const router = require("express").Router()
 
-router.get("/", (req, res) => res.send("DASHBOARD"))
+router.get("/", (req, res) => res.render("posts"))
 
 module.exports = router
