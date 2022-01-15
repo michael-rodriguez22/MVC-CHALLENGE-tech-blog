@@ -1,7 +1,18 @@
 const router = require("express").Router()
 const { Post, User, Comment } = require("../../models")
 
+// render posts page
 router.get("/", (req, res) => {
+  const filter = posts => {
+    if (req.query.author) {
+      posts = posts.filter(post => post.user.username === req.query.author)
+    }
+    if (req.query.title) {
+      posts = posts.filter(post => post.post_title.includes(req.query.title))
+    }
+    return posts
+  }
+
   Post.findAll({
     attributes: ["id", "post_title", "post_body", "created_at"],
     include: [
@@ -20,12 +31,19 @@ router.get("/", (req, res) => {
     ],
   }).then(dbPostData => {
     const posts = dbPostData.map(post => post.get({ plain: true }))
-    console.log(posts)
+    console.log(filter(posts))
     res.render("posts", {
-      posts,
+      posts: filter(posts),
       loggedIn: req.session.loggedIn,
     })
   })
 })
+
+// render single post page
+// router.get("/post/:id", (req, res) => {
+//   Post.findOne({
+//     where: { id: req.params.id },
+//   })
+// })
 
 module.exports = router
