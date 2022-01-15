@@ -1,1 +1,7 @@
-<h1>posts</h1>
+<ul class="mb-4 w-11/12 mx-auto grid grid-cols-1 gap-4 md:grid-cols-2">
+  {{#each posts as |post|}}
+    <li>
+      {{>post-preview post}}
+    </li>
+  {{/each}}
+</ul>

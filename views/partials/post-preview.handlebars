@@ -1,0 +1,24 @@
+<article class="card grid grid-cols-2 text-center">
+  <h3 class="text-lg font-medium col-span-2">
+    {{post_title}}
+  </h3>
+  <p
+    class="text-sm col-span-2 mt-2 mb-4 text-left bg-stone-400 rounded-lg px-2 py-4"
+  >
+    {{post_body}}
+  </p>
+  <span class="text-xs">
+    <i class="far fa-user"></i>
+    Author:
+    {{user.username}}
+  </span>
+  <a
+    href="/post/{{id}}"
+    class="text-xs hover:text-violet-400 transition-colors duration-500"
+  >
+    Comments:
+    {{comments.length}}
+    <i class="far fa-comment-alt"></i>
+  </a>
+
+</article>
