@@ -51,7 +51,25 @@ router.post("/", (req, res) => {
     email: req.body.email,
     password: req.body.password,
   })
-    .then(dbUserData => res.status(200).json(dbUserData))
+    .then(dbUserData => {
+      req.session.save(() => {
+        req.session.user_id = dbUserData.id
+        req.session.username = dbUserData.username
+        req.session.loggedIn = true
+
+        userDataCopy = {
+          id: dbUserData.id,
+          username: dbUserData.username,
+          email: dbUserData.email,
+          // don't send hashed password back in response
+        }
+
+        return res.status(200).json({
+          user: userDataCopy,
+          message: "Welcome to the tech blog! You are now logged in.",
+        })
+      })
+    })
     .catch(err => {
       console.log(err)
       return res.status(500).json(err)
@@ -87,7 +105,7 @@ router.post("/login", (req, res) => {
 
             return res
               .status(200)
-              .json({ user: userDataCopy, message: "You are now logged in" })
+              .json({ user: userDataCopy, message: "You are now logged in!" })
           })
     })
     .catch(err => {

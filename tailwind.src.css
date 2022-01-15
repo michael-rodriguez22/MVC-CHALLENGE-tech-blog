@@ -2,19 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.nav-item {
-  @apply w-fit px-1 pb-1 text-white border-rose-400 border-b-4 border-opacity-0 transition-all duration-500;
-}
-
-.nav-item:hover,
-.nav-item.active {
-  @apply border-opacity-100;
-}
-
-.nav-icon {
-  @apply cursor-pointer px-4 flex items-center rounded text-white text-2xl hover:bg-stone-500 hover:text-rose-300 transition-colors duration-300;
-}
-
 .nav-menu {
   @apply /* mobile and tablet overlay */
   absolute pt-20 inset-0 flex flex-col items-center justify-start bg-stone-900 bg-opacity-90 text-3xl -translate-y-full transition duration-300
@@ -29,4 +16,24 @@
 
 .nav-menu .nav-item {
   @apply my-4 md:my-0;
+}
+
+.nav-item {
+  @apply cursor-pointer w-fit px-1 pb-1 text-white border-rose-400 border-b-4 border-opacity-0 transition-all duration-500 md:hover:border-opacity-100;
+}
+
+.nav-item.active {
+  @apply border-opacity-100;
+}
+
+.nav-icon {
+  @apply cursor-pointer px-4 flex items-center rounded text-white text-2xl md:hover:bg-stone-500 md:hover:text-rose-300 transition-colors duration-300;
+}
+
+.card {
+  @apply bg-stone-300 p-5 rounded-lg drop-shadow-md;
+}
+
+.btn {
+  @apply py-2 rounded-lg bg-stone-700 text-white text-lg transition-colors duration-300;
 }

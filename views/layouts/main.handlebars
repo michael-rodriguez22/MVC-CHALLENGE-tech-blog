@@ -28,14 +28,18 @@
       <nav class="container mx-auto flex justify-between align-middle">
         <a
           href="/"
-          class="text-3xl text-white hover:text-rose-400 transition-colors duration-500"
+          class="text-3xl text-white hover:text-violet-400 transition-colors duration-500"
         >
           Tech Blog
         </a>
         <div id="nav-menu" class="nav-menu">
           <a href="/posts" class="nav-item">Posts</a>
-          <a href="/dashboard" class="nav-item">Dashboard</a>
-          <a id="login/logout" href="/login" class="nav-item">Login</a>
+          {{#if loggedIn}}
+            <a href="/dashboard" class="nav-item">Dashboard</a>
+            <a href="/logout" id="logout" class="nav-item">Logout</a>
+          {{else}}
+            <a href="/login" class="nav-item">Login</a>
+          {{/if}}
         </div>
         <div class="nav-icon z-50 md:hidden" id="overlay-toggle">
           <i class="fas fa-bars"></i>
@@ -67,6 +71,9 @@
         </a>
       </div>
     </footer>
-    <script src="./app.js"></script>
+    <script src="./js/nav.js"></script>
+    {{#if loggedIn}}
+      <script src="./js/logout.js"></script>
+    {{/if}}
   </body>
 </html>

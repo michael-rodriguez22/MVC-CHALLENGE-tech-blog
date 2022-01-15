@@ -1,5 +1,3 @@
-console.log("dog log from app.js")
-
 // handle mobile nav open / close
 const overlay = document.getElementById("nav-menu")
 const overlayToggleIcon = document.getElementById("overlay-toggle")
