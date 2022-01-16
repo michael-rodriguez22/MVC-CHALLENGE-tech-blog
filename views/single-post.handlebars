@@ -1,3 +1,61 @@
-<h1>single post</h1>
+<section
+  class="container w-11/12 mx-auto mb-6 grid grid-cols-1 gap-8 lg:grid-cols-3 items-start"
+>
+  <article class="card">
+    <a href="/posts" class="text-s text-stone-600 flex items-center">
+      <i class="fas fa-arrow-left mr-1"></i>
+      posts
+    </a>
+    <h1 class="text-center text-3xl font-bold lg:mt-4">
+      {{post.post_title}}
+    </h1>
+    <div class="bg-stone-700 px-2 py-4 my-5">
+      <p class="text-md text-white break-words">
+        {{post.post_body}}
+      </p>
+    </div>
+    <p class="text-right text-base">
+      Posted by
+      <a
+        href="/posts?author={{post.user.username}}"
+        title="more posts by {{post.user.username}}"
+        class="text-violet-600"
+      >{{post.user.username}}</a>
+      on
+      {{format_date post.created_at}}
+    </p>
+  </article>
 
-{{>post-preview post}}
+  <div class="card lg:col-span-2">
+    <div class="flex justify-between lg:justify-center">
+      <h1 class="text-2xl font-semibold lg:mr-6">Comments</h1>
+      <i class="far fa-comment-alt text-xl"></i>
+    </div>
+    {{#if loggedIn}}
+      <div class="flex flex-col lg:w-4/6 lg:mx-auto">
+        <textarea
+          id="comment-input"
+          class="resize-none rounded-md p-3 my-3 w-full"
+          rows="2"
+          placeholder="Add a comment..."
+        ></textarea>
+        <button class="btn btn-rose w-full">
+          Post
+        </button>
+      </div>
+    {{else}}
+      <a href="/login">
+        <p class="text-rose-500 font-medium text-md text-center my-4">
+          Login to add a comment
+        </p>
+      </a>
+    {{/if}}
+    <ul>
+    {{#each post.comments as |comment|}}
+    <li>
+      {{>comment comment}}
+    </li>
+    {{/each}}
+    </ul>
+  </div>
+</section>
