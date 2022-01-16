@@ -50,12 +50,13 @@
         </p>
       </a>
     {{/if}}
-    <ul>
-    {{#each post.comments as |comment|}}
-    <li>
-      {{>comment comment}}
-    </li>
-    {{/each}}
-    </ul>
+
+    <div class="border-t-4 border-violet-500 mt-4">
+      {{#each post.comments}}
+        {{>comment sessUserId=../sessionUserId postUserId=../post.user.id}}
+      {{/each}}
+    </div>
   </div>
 </section>
+
+<script src="/js/singlePost.js"></script>

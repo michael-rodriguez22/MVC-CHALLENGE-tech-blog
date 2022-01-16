@@ -4,5 +4,10 @@ module.exports = {
 
   // @todo - ensure posts and comments can be rendered with line breaks
 
+  edit_privileges: (sessUserId, commentUserId) => sessUserId === commentUserId,
+
+  delete_privileges: (sessUserId, commentUserId, postUserId) =>
+    sessUserId === commentUserId || sessUserId === postUserId,
+
   format_date: date => new Date(date).toLocaleDateString(),
 }

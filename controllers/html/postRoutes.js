@@ -48,15 +48,16 @@ router.get("/:id", (req, res) => {
     include: [
       {
         model: Comment,
+        order: [["created_at", "DESC"]],
         attributes: ["id", "comment_body", "post_id", "user_id", "created_at"],
         include: {
           model: User,
-          attributes: ["username"],
+          attributes: ["username", "id"],
         },
       },
       {
         model: User,
-        attributes: ["username"],
+        attributes: ["username", "id"],
       },
     ],
   })
@@ -66,6 +67,7 @@ router.get("/:id", (req, res) => {
         : res.render("single-post", {
             post: dbPostData.get({ plain: true }),
             loggedIn: req.session.loggedIn,
+            sessionUserId: req.session.user_id,
           })
     })
     .catch(err => {

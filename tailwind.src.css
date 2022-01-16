@@ -35,13 +35,29 @@
 }
 
 .btn {
-  @apply py-2 rounded-lg bg-stone-700 text-white text-lg transition-colors duration-300;
+  @apply py-2 rounded-lg bg-stone-700 text-white text-lg;
 }
 
 .btn-violet {
-  @apply hover:bg-violet-400 hover:text-stone-800 focus:bg-violet-400 focus:text-stone-800;
+  @apply hover:bg-violet-400 hover:text-stone-800 focus:bg-violet-400 focus:text-stone-800 transition-colors duration-300;
 }
 
 .btn-rose {
-  @apply hover:bg-rose-400 hover:text-stone-800 focus:bg-rose-400 focus:text-stone-800;
+  @apply hover:bg-rose-400 hover:text-stone-800 focus:bg-rose-400 focus:text-stone-800 transition-colors duration-300;
+}
+
+.edit-icon {
+  @apply cursor-pointer text-white hover:text-violet-400 transition-colors duration-500;
+}
+
+.edit-icon.active {
+  @apply text-violet-400;
+}
+
+.delete-icon {
+  @apply cursor-pointer text-white hover:text-rose-400 transition-colors duration-500;
+}
+
+.delete-icon.active {
+  @apply text-rose-400;
 }

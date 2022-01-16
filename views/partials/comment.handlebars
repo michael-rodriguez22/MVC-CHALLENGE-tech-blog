@@ -1,1 +1,24 @@
-<h1>comment</h1>
+<div
+  class="bg-stone-700 rounded-xs drop-shadow-md p-4 mt-6 grid grid-cols-2"
+  data-comment_id={{id}}
+>
+  <p class="text-white col-span-2">{{comment_body}}</p>
+  <div class="col-span-1">
+    <span class="text-stone-300 text-xs mr-3">{{user.username}}</span>
+    <span class="text-stone-300 text-xs">{{format_date created_at}}</span>
+  </div>
+  <div class="col-span-1 flex justify-end gap-3">
+    {{#if (edit_privileges sessUserId user.id)}}
+      <i title="edit comment" class="fa fa-edit edit-icon"></i>
+    {{/if}}
+    {{#if (delete_privileges sessUserId user.id postUserId)}}
+      <i title="delete comment" class="fa fa-trash delete-icon"></i>
+    {{/if}}
+  </div>
+</div>
+
+{{!-- 
+  session user id: {{sessUserId}}
+  post user id: {{postUserId}}
+  comment user id: {{user.id}} 
+--}}
