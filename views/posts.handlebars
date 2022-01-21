@@ -12,7 +12,8 @@
       <button id="search-author" class="btn btn-rose grow mx-2">Search by author</button>
     </div>
   </div>
-  <ul class="my-4 grid grid-cols-1 gap-4 md:mt-12 md:grid-cols-2 md:gap-8 xl:grid-cols-3 xl:gap-12">
+  <p class="text-2xl text-stone-800 md:mt-4">{{message}}</p>
+  <ul class="my-4 grid grid-cols-1 gap-4 md:mt-10 md:grid-cols-2 md:gap-8 xl:grid-cols-3 xl:gap-12">
     {{#if posts.length}}
     {{#each posts as |post|}}
     <li class="drop-shadow-lg">

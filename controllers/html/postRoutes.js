@@ -3,9 +3,12 @@ const { Post, User, Comment } = require("../../models")
 
 // render posts page
 router.get("/", (req, res) => {
-  const filter = posts => {
+  console.log("dog log", req.query.author, req.query.title)
+  const filterPosts = posts => {
     if (req.query.author) {
-      posts = posts.filter(post => post.user.username === req.query.author)
+      posts = posts.filter(post =>
+        post.user.username.includes(req.query.author)
+      )
     }
     if (req.query.title) {
       posts = posts.filter(post => post.post_title.includes(req.query.title))
@@ -32,10 +35,18 @@ router.get("/", (req, res) => {
     ],
   }).then(dbPostData => {
     const posts = dbPostData.map(post => post.get({ plain: true }))
-    console.log(filter(posts))
     res.render("posts", {
-      posts: filter(posts),
+      posts: filterPosts(posts),
       loggedIn: req.session.loggedIn,
+      message: () => {
+        if (req.query.title === undefined && req.query.author === undefined) {
+          return "Showing all posts"
+        } else {
+          return `Showing posts ${
+            req.query.title ? `with a title of "${req.query.title}"` : ""
+          } ${req.query.author ? `written by "${req.query.author}"` : ""}`
+        }
+      },
     })
   })
 })

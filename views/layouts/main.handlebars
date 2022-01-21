@@ -26,10 +26,7 @@
   <body class="bg-rose-300 flex flex-col min-h-full">
     <header class="bg-stone-700 py-3 px-6 z-50">
       <nav class="container mx-auto flex justify-between align-middle">
-        <a
-          href="/"
-          class="text-3xl text-white hover:text-violet-400 transition-colors duration-500"
-        >
+        <a href="/" class="text-3xl nav-item">
           Tech Blog
         </a>
         <div id="nav-menu" class="nav-menu">
@@ -41,7 +38,7 @@
             <a href="/login" class="nav-item">Login</a>
           {{/if}}
         </div>
-        <div class="nav-icon z-50 md:hidden" id="overlay-toggle">
+        <div class="nav-icon text-2xl z-50 md:hidden" id="overlay-toggle">
           <i class="fas fa-bars"></i>
         </div>
       </nav>
@@ -57,12 +54,12 @@
           href="https://github.com/michael-rodriguez22/MVC-CHALLENGE-tech-blog"
           target="_blank"
           rel="noreferrer"
-          class="nav-item"
+          class="nav-icon"
         >
           <i class="fab fa-github text-lg"></i>
           <span class="ml-2 text-md">repository</span>
         </a>
-        <div class="nav-icon" title="scroll to top" id="scroll-icon">
+        <div class="nav-icon text-2xl" title="scroll to top" id="scroll-icon">
           <i class="fa fa-angle-up"></i>
         </div>
         <a href="/contact" class="nav-item">

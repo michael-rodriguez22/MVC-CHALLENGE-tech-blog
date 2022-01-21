@@ -23,7 +23,7 @@ function closeOverlay() {
 window.addEventListener("load", () => {
   const navItems = Array.from(document.querySelectorAll(".nav-item"))
   const path = window.location.pathname
-  if (path === "/") return
+  if (path === "/") return navItems[0].classList.add("active")
   else {
     navItems.forEach(item => {
       const href = item.attributes.href.value
