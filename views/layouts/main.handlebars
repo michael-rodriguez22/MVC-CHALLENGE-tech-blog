@@ -30,6 +30,7 @@
   <body
     class="flex flex-col min-h-full bg-gradient-to-b 
       {{#if landing}} from-rose-500 to-rose-400 
+      {{else if dashboard}} from-rose-400 to-rose-300
       {{else}} from-rose-400 to-rose-300 justify-between
       {{/if}}"
   >
@@ -67,6 +68,10 @@
         >Michael Rodriguez</a>
       </p>
     </div>
+    {{else if dashboard}}
+    <main class="w-screen mt-6 mb-auto">
+      {{{body}}}
+    </main>
     {{else}}
     <main class="container mx-auto my-6">
       {{{body}}}
@@ -76,19 +81,24 @@
     <footer class="bg-stone-600 py-3 px-6">
       <div class="container mx-auto flex justify-between">
         <a
+          class="nav-icon"
           href="https://github.com/michael-rodriguez22/MVC-CHALLENGE-tech-blog"
+          title="Visit GitHub repository"
           target="_blank"
           rel="noreferrer"
-          class="nav-icon"
         >
           <i class="fab fa-github text-lg"></i>
-          <span class="ml-2 text-md">repository</span>
         </a>
-        <div class="nav-icon text-2xl" title="scroll to top" id="scroll-icon">
-          <i class="fa fa-angle-up"></i>
+        <div class="nav-icon" id="scroll-icon" title="Scroll to top">
+          <i class="fa fa-angle-up text-2xl"></i>
         </div>
-        <a href="/contact" class="nav-item">
-          <span class="mr-2 text-md">contact</span>
+        <a 
+          class="nav-icon"
+          href="mailto:michael-rodriguez22.work@gmail.com?subject=MVC-Tech-Blog&body=Hello Michael,"
+          title="Contact site creator"
+          target="_blank"
+          rel="noreferrer"
+        >
           <i class="far fa-envelope text-lg"></i>
         </a>
       </div>

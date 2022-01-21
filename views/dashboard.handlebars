@@ -1,1 +1,24 @@
-<h1>dashboard</h1>
+<section class="w-11/12 mx-auto lg:mt-4">
+  <header class="grid gap-4 items-center grid-cols-1 sm:grid-cols-6">
+    <h1 class="dashboard-h1">
+      Hello,
+      <span class="text-violet-600">{{username}}</span>
+    </h1>
+    <h2 class="dashboard-h2">
+      What would you like to do?
+    </h2>
+    <button id="edit-details-toggle" class="dashboard-toggle">
+      Edit Profile Info
+    </button>
+    <button id="create-post-toggle" class="dashboard-toggle active">
+      Create Post
+    </button>
+  </header>
+
+  {{! forms }}
+
+  {{! posts list }}
+
+</section>
+
+<script src="/js/dashboard.js"></script>
