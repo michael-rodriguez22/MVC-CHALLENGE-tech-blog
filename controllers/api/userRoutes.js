@@ -66,13 +66,14 @@ router.post("/", (req, res) => {
 
         return res.status(200).json({
           user: userDataCopy,
-          message: "Welcome to the tech blog! You are now logged in.",
+          message:
+            "Welcome to the tech blog! Would you like to create your first post?",
         })
       })
     })
     .catch(err => {
       console.log(err)
-      return res.status(500).json(err)
+      return res.status(500).json({ err, message: "Something went wrong" })
     })
 })
 
@@ -105,12 +106,12 @@ router.post("/login", (req, res) => {
 
             return res
               .status(200)
-              .json({ user: userDataCopy, message: "You are now logged in!" })
+              .json({ user: userDataCopy, message: "You are now logged in" })
           })
     })
     .catch(err => {
       console.log(err)
-      return res.status(500).json(err)
+      return res.status(500).json({ err, message: "Something went wrong" })
     })
 })
 
@@ -135,7 +136,7 @@ router.put("/:id", (req, res) => {
     })
     .catch(err => {
       console.log(err)
-      return res.status(500).json(err)
+      return res.status(500).json({ err, message: "Something went wrong" })
     })
 })
 

@@ -3,6 +3,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     {{! roboto & roboto slab google fonts }}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -10,6 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
+    
     {{! font awesome icons }}
     <link
       rel="stylesheet"
@@ -17,16 +19,18 @@
       integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
       crossorigin="anonymous"
     />
+
     {{! tailwind build }}
     <link rel="stylesheet" href="/style.css" />
     <title>
       Tech Blog
     </title>
   </head>
+  
   <body
     class="flex flex-col min-h-full bg-gradient-to-b 
       {{#if landing}} from-rose-500 to-rose-400 
-      {{else}} from-rose-400 via-rose-300 to-pink-300 justify-between
+      {{else}} from-rose-400 to-rose-300 justify-between
       {{/if}}"
   >
     <header class="bg-stone-700 py-3 px-6 z-50">
@@ -49,15 +53,10 @@
       </nav>
     </header>
 
-    <main class="
-      {{#if landing}} w-screen mb-auto 
-      {{else}} container mx-auto my-6
-      {{/if}}
-    ">
+    {{#if landing}}
+    <main class="w-screen mb-auto">
       {{{body}}}
     </main>
-
-    {{#if landing}}
     <div class="p-4">
       <p class="text-center text-stone-800 text-sm md:text-base 2xl:text-lg">&copy; 2022
         <a
@@ -68,6 +67,10 @@
         >Michael Rodriguez</a>
       </p>
     </div>
+    {{else}}
+    <main class="container mx-auto my-6">
+      {{{body}}}
+    </main>
     {{/if}}
 
     <footer class="bg-stone-600 py-3 px-6">

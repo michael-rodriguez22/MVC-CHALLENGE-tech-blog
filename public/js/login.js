@@ -17,7 +17,7 @@ async function loginFormHandler(e) {
     const data = await response.json()
 
     alert(data.message)
-    response.ok && document.location.replace("/dashboard")
+    response.ok && document.location.replace("/")
   }
 }
 

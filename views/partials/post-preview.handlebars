@@ -8,7 +8,7 @@
   <a
     href="/posts/{{id}}"
     title="view full post"
-    class="bg-stone-700 col-span-2 my-2 rounded-sm px-2 py-4 transition-colors duration-500 hover:bg-rose-400"
+    class="bg-stone-700 col-span-2 my-2 rounded-sm px-2 py-4 transition-colors duration-500 hover:bg-violet-400"
   >
     <p class="text-left text-sm break-words text-white">
       {{preview_post_body post_body}}
@@ -16,18 +16,15 @@
   </a>
   <a
     href="/posts/?author={{user.username}}"
-    class="text-xs hover:text-violet-400 transition-colors duration-500"
+    class="text-xs hover:text-violet-700 transition-colors duration-500"
   >
     <i class="far fa-user"></i>
     Author:
     {{user.username}}
   </a>
-  <a
-    href="/posts/{{id}}"
-    class="text-xs hover:text-violet-400 transition-colors duration-500"
-  >
+  <p class="text-xs">
     Comments:
     {{comments.length}}
     <i class="far fa-comment-alt"></i>
-  </a>
+  </p>
 </article>
