@@ -3,7 +3,11 @@ const postRoutes = require("./postRoutes")
 const dashboardRoutes = require("./dashboardRoutes")
 
 router.get("/", (req, res) =>
-  res.render("home", { loggedIn: req.session.loggedIn })
+  res.render("home", {
+    loggedIn: req.session.loggedIn,
+    landing: true,
+    username: req.session.username,
+  })
 )
 
 router.get("/login", (req, res) =>
