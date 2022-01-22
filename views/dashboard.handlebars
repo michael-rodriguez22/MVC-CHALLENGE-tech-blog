@@ -7,17 +7,33 @@
     <h2 class="dashboard-h2">
       What would you like to do?
     </h2>
-    <button id="edit-details-toggle" class="dashboard-toggle">
+    <button id="edit-info-toggle" class="dashboard-toggle">
       Edit Profile Info
     </button>
-    <button id="create-post-toggle" class="dashboard-toggle active">
+    <button id="create-post-toggle" class="dashboard-toggle">
       Create Post
     </button>
   </header>
 
   {{! forms }}
+  <div class="flex flex-col gap-6 my-6 mx-auto lg:w-2/3 2xl:w-1/2">
+    <div class="edit-info-form">edit info</div>
+    <div class="create-post-form">create post</div>
+  </div>
 
   {{! posts list }}
+  <div class="border-t-4 border-violet-700">
+    <h3 class="my-4 font-semibold text-stone-700 text-center text-2xl">Your
+      Posts</h3>
+    {{! search bar and sort buttons }}
+    <div class="grid gap-4 grid-cols-1">
+      {{! map through posts, render post previews }}
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+    </div>
+  </div>
 
 </section>
 

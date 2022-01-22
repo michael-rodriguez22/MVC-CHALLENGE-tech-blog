@@ -51,14 +51,23 @@
 
 .dashboard-toggle {
   @apply py-2 mx-auto rounded-lg bg-stone-700 text-white
-  text-base md:text-lg lg:text-xl 2xl:text-2xl
+  text-base xl:text-lg
   w-full xl:w-5/6
   sm:col-span-3 lg:col-span-1;
 }
 
-.dashboard-toggle:hover,
 .dashboard-toggle.active {
   @apply bg-rose-500 text-stone-800 outline outline-2 outline-stone-900;
+}
+
+.edit-info-form,
+.create-post-form {
+  @apply card hidden;
+}
+
+.edit-info-form.active,
+.create-post-form.active {
+  @apply grid;
 }
 
 /* UTIL */

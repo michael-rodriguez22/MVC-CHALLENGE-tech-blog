@@ -20,12 +20,6 @@ router.delete("/login", (req, res) =>
   req.session.loggedIn ? res.redirect("/") : res.render("login")
 )
 
-router.get("/contact", (req, res) =>
-  res.render("contact", {
-    loggedIn: req.session.loggedIn,
-  })
-)
-
 router.use("/posts", postRoutes)
 
 router.use("/dashboard", dashboardRoutes)
