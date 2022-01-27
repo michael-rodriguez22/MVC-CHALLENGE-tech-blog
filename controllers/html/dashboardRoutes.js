@@ -5,6 +5,7 @@ router.get("/", (req, res) =>
     loggedIn: true,
     dashboard: true,
     username: req.session.username,
+    email: req.session.email,
     sessionUserId: req.session.user_id,
   })
 )

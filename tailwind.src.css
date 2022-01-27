@@ -50,19 +50,38 @@
 }
 
 .dashboard-toggle {
-  @apply py-2 mx-auto rounded-lg bg-stone-700 text-white
+  @apply py-2 mx-auto rounded-lg 
+  transition-colors duration-300
+  bg-stone-700 text-white
   text-base xl:text-lg
   w-full xl:w-5/6
   sm:col-span-3 lg:col-span-1;
 }
 
 .dashboard-toggle.active {
-  @apply bg-rose-500 text-stone-800 outline outline-2 outline-stone-900;
+  @apply bg-rose-500 text-stone-300 outline outline-2 outline-stone-800;
 }
 
 .edit-info-form,
 .create-post-form {
-  @apply card hidden;
+  @apply hidden card gap-6 grid-cols-1 mx-auto w-full xl:w-2/3 2xl:w-1/2;
+}
+
+.edit-info-form {
+  @apply lg:grid-cols-3 lg:items-end;
+}
+
+.edit-input-group {
+  @apply w-full grid grid-cols-1;
+}
+
+.edit-input-group p {
+  @apply text-xs pl-1 lg:text-sm;
+}
+
+.edit-input-group input,
+.create-post-form input {
+  @apply p-2 rounded-md text-sm lg:text-base;
 }
 
 .edit-info-form.active,

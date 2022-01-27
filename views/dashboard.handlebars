@@ -1,4 +1,5 @@
 <section class="w-11/12 mx-auto lg:mt-4">
+
   <header class="grid gap-4 items-center grid-cols-1 sm:grid-cols-6">
     <h1 class="dashboard-h1">
       Hello,
@@ -11,17 +12,37 @@
       Edit Profile Info
     </button>
     <button id="create-post-toggle" class="dashboard-toggle">
-      Create Post
+      Create New Post
     </button>
   </header>
 
-  {{! forms }}
-  <div class="flex flex-col gap-6 my-6 mx-auto lg:w-2/3 2xl:w-1/2">
-    <div class="edit-info-form">edit info</div>
-    <div class="create-post-form">create post</div>
+  <div class="flex flex-col gap-6 my-6">
+    <form class="edit-info-form">
+      <div class="edit-input-group">
+        <p>{{username}}</p>
+        <input type="text" id="username-input" placeholder="New Username" />
+      </div>
+      <div class="edit-input-group">
+        <p>{{email}}</p>
+        <input type="email" id="email-input" placeholder="New Email Address" />
+      </div>
+      <button type="submit" class="btn btn-violet">Confirm Edit</button>
+    </form>
+    <form class="create-post-form">
+      <input type="text" id="post-title" placeholder="Post Title" />
+      <textarea
+        class="p-2 rounded-md text-sm"
+        id="post-body"
+        rows="10"
+        placeholder="Post Body"
+      ></textarea>
+      <button
+        type="submit"
+        class="btn btn-violet lg:w-2/3 lg:mx-auto"
+      >Submit</button>
+    </form>
   </div>
 
-  {{! posts list }}
   <div class="border-t-4 border-violet-700">
     <h3 class="my-4 font-semibold text-stone-700 text-center text-2xl">Your
       Posts</h3>
