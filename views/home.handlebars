@@ -6,7 +6,9 @@
   >
     <h1 class="text-stone-200 text-[2rem] md:text-[2.5rem] lg:text-[3rem]">
       Welcome
-      {{#if loggedIn}} Back, {{username}}{{/if}}
+      {{#if loggedIn}}
+        Back,
+        <span class="text-violet-500">{{username}}</span>{{/if}}
     </h1>
     {{#if loggedIn}}
       <a href="/posts" class="hero-call-to-action">
