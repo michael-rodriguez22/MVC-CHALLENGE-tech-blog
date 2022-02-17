@@ -1,18 +1,20 @@
+require("dotenv").config()
 const Sequelize = require("sequelize")
 
-require("dotenv").config()
+const {
+  DB_URL,
+  DB_NAME = "mvc_challenge_tech_blog",
+  DB_USER = "root",
+  DB_PW,
+} = process.env
 
-const sequelize = process.env.DB_URL
-  ? new Sequelize(process.env.DB_URL)
-  : new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PW, {
+const sequelize = DB_URL
+  ? new Sequelize(DB_URL)
+  : new Sequelize(DB_NAME, DB_USER, DB_PW, {
       host: "localhost",
       dialect: "mysql",
       port: 3306,
+      logging: false,
     })
-
-sequelize
-  .authenticate()
-  .then(() => console.log(`Successfully connected to database...`))
-  .catch(err => console.log(`Error connecting to database... ${err}`))
 
 module.exports = sequelize

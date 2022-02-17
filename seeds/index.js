@@ -3,6 +3,7 @@ const seedPosts = require("./seedPosts")
 const seedComments = require("./seedComments")
 
 const sequelize = require("../config/connection")
+sequelize.options.logging = console.log
 
 const seedAll = async () => {
   await sequelize.sync({ force: true })
