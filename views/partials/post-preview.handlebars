@@ -1,9 +1,9 @@
 <article class="card grid grid-cols-2 text-center">
   <span class="col-start-2 col-end-3 text-right text-xs">
-    {{format_date created_at}}
+    {{format_date createdAt}}
   </span>
   <h2 class="text-lg font-medium col-span-2">
-    {{post_title}}
+    {{title}}
   </h2>
   <a
     href="/posts/{{id}}"
@@ -11,7 +11,7 @@
     class="bg-stone-700 col-span-2 my-2 rounded-sm px-2 py-4 transition-colors duration-500 hover:bg-violet-400"
   >
     <p class="text-left text-sm break-words text-white">
-      {{preview_post_body post_body}}
+      {{description}}
     </p>
   </a>
   <a
@@ -24,7 +24,7 @@
   </a>
   <p class="text-xs">
     Comments:
-    {{comments.length}}
+    {{#if comments}} {{comments.length}} {{else 0}} {{/if}}
     <i class="far fa-comment-alt"></i>
   </p>
 </article>

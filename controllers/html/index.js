@@ -6,4 +6,8 @@ const renderLogin = ({ session }, res) => {
   session.loggedIn ? res.redirect("/") : res.render("login")
 }
 
-module.exports = { renderHome, renderLogin }
+const { renderPosts, renderSinglePost } = require("./posts-controller")
+
+// const {} = require("./dashboard-controller")
+
+module.exports = { renderHome, renderLogin, renderPosts, renderSinglePost }

@@ -1,8 +1,16 @@
 const router = require("express").Router()
-const apiRoutes = require("./api")
-const htmlRoutes = require("./html")
+const {
+  renderHome,
+  renderLogin,
+  renderPosts,
+  renderSinglePost,
+} = require("../controllers/html")
 
-router.use("/api", apiRoutes)
-router.use("/", htmlRoutes)
+router.use("/api", require("./api"))
+
+router.get("/", renderHome)
+router.get("/login", renderLogin)
+router.get("/posts", renderPosts)
+router.get("/posts/:postId", renderSinglePost)
 
 module.exports = router
