@@ -11,10 +11,16 @@ Comment.init(
       primaryKey: true,
       autoIncrement: true,
     },
+
     comment_body: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: { len: [1, 280] },
+      set(body) {
+        this.setDataValue("body", body.trim())
+      },
     },
+
     user_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -22,6 +28,7 @@ Comment.init(
         key: "id",
       },
     },
+
     post_id: {
       type: DataTypes.INTEGER,
       references: {

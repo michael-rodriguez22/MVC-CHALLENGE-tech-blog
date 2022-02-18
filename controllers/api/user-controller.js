@@ -12,6 +12,7 @@ const handle404 = (resource = "user") => `No ${resource} was found with this id`
 // @desc    Register new user and save user data to session
 const registerUser = asyncHandler(async ({ body, session }, res) => {
   const { username, email, password } = body
+
   if (!username || !email || !password) {
     res.status(400)
     throw new Error("Username, email, and password are required")
@@ -47,6 +48,7 @@ const registerUser = asyncHandler(async ({ body, session }, res) => {
 // @desc    Login with email and password
 const loginUser = asyncHandler(async ({ body, session }, res) => {
   const { email, password } = body
+
   if (!email || !password) {
     res.status(400)
     throw new Error("Email and password are required to login")
@@ -104,6 +106,7 @@ const getMe = asyncHandler(async ({ session }, res) => {
 // @desc    Update current user's info
 const updateMe = asyncHandler(async ({ body, session }, res) => {
   const { currentPassword, username, email, newPassword } = body
+
   if (!username && !email && !newPassword) {
     res.status(400)
     throw new Error("No profile information was sent to be updated")

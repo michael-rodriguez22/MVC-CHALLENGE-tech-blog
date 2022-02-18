@@ -4,8 +4,9 @@
   "description": "A blog site where users can sign up to read and write about tech!",
   "main": "server.js",
   "scripts": {
-    "build": "npx tailwindcss -i ./tailwind.src.css -o ./public/style.css; node server.js;",
+    "start": "npx tailwindcss -i ./tailwind.src.css -o ./public/style.css; node server.js;",
     "dev": "concurrently \"nodemon server.js\" \"npx tailwindcss -i ./tailwind.src.css -o ./public/style.css --watch\"",
+    "server": "nodemon server.js",
     "seed": "node seeds/"
   },
   "keywords": [

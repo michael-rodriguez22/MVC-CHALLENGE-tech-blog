@@ -1,10 +1,16 @@
 module.exports = (err, req, res, next) => {
+  console.dir(err)
+
   let status = res.statusCode === 200 ? 500 : res.statusCode
   const body = { message: err.message }
 
   if (err.errors && err.errors[0].type === "Validation error") {
+    const validatorErr = err.errors[0]
     status = 400
-    body.message = `Invalid ${err.errors[0].path}`
+    body.message = `Invalid ${validatorErr.path}${
+      validatorErr.validatorKey === "len" &&
+      `, must be between ${validatorErr.validatorArgs[0]} and ${validatorErr.validatorArgs[1]} characters long`
+    }`
   }
 
   console.log(`\nError: ${body.message}`.red.bold)

@@ -24,12 +24,19 @@ User.init(
       validate: {
         isEmail: true,
       },
+      set(email) {
+        this.setDataValue("email", email.trim())
+      },
     },
 
     username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: { len: [1, 33] },
+      set(username) {
+        this.setDataValue("username", username.trim())
+      },
     },
 
     password: {
@@ -37,6 +44,7 @@ User.init(
       allowNull: false,
       validate: {
         len: [6],
+        not: /\s/g,
       },
     },
   },
@@ -58,7 +66,7 @@ User.init(
       },
     },
     sequelize,
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
     underscored: true,
     modelName: "user",
