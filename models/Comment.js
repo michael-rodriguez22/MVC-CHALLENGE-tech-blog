@@ -16,8 +16,8 @@ Comment.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: { len: [1, 280] },
-      set(body) {
-        this.setDataValue("body", body.trim())
+      set(comment_body) {
+        this.setDataValue("comment_body", comment_body.trim())
       },
     },
 

@@ -7,19 +7,14 @@ const handle404 = (resource = "post") => `No ${resource} found with this id`
 // @access  public
 // @route   /api/posts/
 // @desc    Get all posts
-const getPosts = asyncHandler(async ({ params }, res) => {
-  // handle search and filter params?
+const getPosts = asyncHandler(async (req, res) => {
   const posts = await Post.findAll({
-    attributes: { exclude: ["user_id"] },
+    attributes: {
+      exclude: ["user_id"],
+    },
     include: [
       { model: User, attributes: ["id", "username"] },
-      {
-        model: Comment,
-        include: {
-          model: User,
-          attributes: ["id", "username"],
-        },
-      },
+      { model: Comment, attributes: ["id"] },
     ],
   })
 
@@ -50,7 +45,21 @@ const createPost = asyncHandler(async ({ body, session }, res) => {
 
 // get single post
 const getPostById = asyncHandler(async ({ params }, res) => {
-  const post = await Post.findByPk(params.id)
+  const post = await Post.findByPk(params.id, {
+    include: [
+      { model: User, attributes: ["id", "username"] },
+      {
+        model: Comment,
+        attributes: {
+          exclude: ["post_id", "user_id"],
+        },
+        include: {
+          model: User,
+          attributes: ["id", "username"],
+        },
+      },
+    ],
+  })
 
   if (!post) {
     res.status(404)

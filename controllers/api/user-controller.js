@@ -1,10 +1,28 @@
 const asyncHandler = require("express-async-handler")
-const { User, Post } = require("../../models")
-const { Op } = require("sequelize")
+const { User, Post, Comment } = require("../../models")
 
-const hidePassword = ({ id, username, email }) => ({ id, username, email })
+const hidePassword = ({ dataValues }) => {
+  const copy = {}
+
+  for (let property in dataValues) {
+    if (property !== "password") copy[property] = dataValues[property]
+  }
+
+  return copy
+}
 
 const handle404 = (resource = "user") => `No ${resource} was found with this id`
+
+const includePosts = {
+  model: Post,
+  attributes: {
+    exclude: ["user_id"],
+  },
+  include: {
+    model: Comment,
+    attributes: ["id"],
+  },
+}
 
 // @method  POST
 // @access  public
@@ -16,22 +34,6 @@ const registerUser = asyncHandler(async ({ body, session }, res) => {
   if (!username || !email || !password) {
     res.status(400)
     throw new Error("Username, email, and password are required")
-  }
-
-  const exists = await User.findOne({
-    where: {
-      [Op.or]: [{ username }, { email }],
-    },
-  })
-
-  if (exists) {
-    res.status(400)
-
-    if (exists.username === username)
-      throw new Error("This username is already in use")
-
-    if (exists.email === email)
-      throw new Error("This email address is already in use")
   }
 
   const user = await User.create({ username, email, password })
@@ -54,20 +56,20 @@ const loginUser = asyncHandler(async ({ body, session }, res) => {
     throw new Error("Email and password are required to login")
   }
 
-  const user = await User.findOne({ where: { email } })
+  const user = await User.findOne({
+    where: { email },
+    include: includePosts,
+  })
 
-  if (!user || !user.checkPassword(body.password)) {
+  if (!user || !user.checkPassword(password)) {
     res.status(400)
     throw new Error("Incorrect login credentials")
   }
 
-  const posts = await Post.findAll({ where: { user_id: user.id } })
-
   session.user = hidePassword(user)
-  session.posts = posts
   session.loggedIn = true
 
-  return res.status(200).json({ user: session.user, posts: session.posts })
+  return res.status(200).json(session.user)
 })
 
 // @method  POST
@@ -84,7 +86,9 @@ const logoutUser = asyncHandler(async ({ session }, res) => {
 // @route   /api/users/me
 // @desc    Get current user info
 const getMe = asyncHandler(async ({ session }, res) => {
-  const user = await User.findByPk(session.user.id)
+  const user = await User.findByPk(session.user.id, {
+    include: includePosts,
+  })
 
   if (!user) {
     res.status(404)
@@ -92,12 +96,9 @@ const getMe = asyncHandler(async ({ session }, res) => {
     throw new Error(handle404() + ", try logging in again")
   }
 
-  const posts = await Post.findAll({ where: { user_id: user.id } })
-
   session.user = hidePassword(user)
-  session.posts = posts
 
-  return res.status(200).json({ user: session.user, posts: session.posts })
+  return res.status(200).json(session.user)
 })
 
 // @method  PUT
@@ -112,7 +113,9 @@ const updateMe = asyncHandler(async ({ body, session }, res) => {
     throw new Error("No profile information was sent to be updated")
   }
 
-  const user = await User.findByPk(session.user.id)
+  const user = await User.findByPk(session.user.id, {
+    include: includePosts,
+  })
 
   if (!user) {
     res.status(404)
@@ -131,12 +134,9 @@ const updateMe = asyncHandler(async ({ body, session }, res) => {
 
   await user.save()
 
-  const posts = await Post.findAll({ where: { user_id: user.id } })
-
   session.user = hidePassword(user)
-  session.posts = posts
 
-  return res.status(200).json({ user: session.user, posts: session.posts })
+  return res.status(200).json(session.user)
 })
 
 module.exports = { registerUser, loginUser, logoutUser, getMe, updateMe }
