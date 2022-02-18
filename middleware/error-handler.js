@@ -2,7 +2,7 @@ module.exports = (err, req, res, next) => {
   let status = res.statusCode === 200 ? 500 : res.statusCode
   const body = { message: err.message }
 
-  if (err.errors[0] && err.errors[0].type === "Validation error") {
+  if (err.errors && err.errors[0].type === "Validation error") {
     status = 400
     body.message = `Invalid ${err.errors[0].path}`
   }

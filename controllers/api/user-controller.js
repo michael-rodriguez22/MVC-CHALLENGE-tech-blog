@@ -103,10 +103,10 @@ const getMe = asyncHandler(async ({ session }, res) => {
 // @route   /api/users/me
 // @desc    Update current user's info
 const updateMe = asyncHandler(async ({ body, session }, res) => {
-  const { username, email } = body
-  if (!username && !email) {
+  const { currentPassword, username, email, newPassword } = body
+  if (!username && !email && !newPassword) {
     res.status(400)
-    throw new Error("No update to email or username was provided")
+    throw new Error("No profile information was sent to be updated")
   }
 
   const user = await User.findByPk(session.user.id)
@@ -117,10 +117,14 @@ const updateMe = asyncHandler(async ({ body, session }, res) => {
     throw new Error(handle404() + ", try logging in again")
   }
 
-  user.set({
-    username: username || user.username,
-    email: email || user.email,
-  })
+  if (!user.checkPassword(currentPassword)) {
+    res.status(400)
+    throw new Error("Incorrect password")
+  }
+
+  if (username) user.username = username
+  if (email) user.email = email
+  if (newPassword) user.password = newPassword
 
   await user.save()
 
