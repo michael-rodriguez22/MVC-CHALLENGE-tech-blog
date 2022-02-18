@@ -3,7 +3,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     {{! roboto & roboto slab google fonts }}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
-    
+
     {{! font awesome icons }}
     <link
       rel="stylesheet"
@@ -26,10 +26,10 @@
       Tech Blog
     </title>
   </head>
-  
+
   <body
     class="flex flex-col min-h-full bg-gradient-to-b 
-      {{#if landing}} from-rose-500 to-rose-400 
+    {{#if landing}} from-rose-500 to-rose-400 
       {{else if dashboard}} from-rose-400 to-rose-300
       {{else}} from-rose-400 to-rose-300 justify-between
       {{/if}}"
@@ -41,7 +41,7 @@
         </a>
         <div id="nav-menu" class="nav-menu">
           <a href="/posts" class="nav-item">Posts</a>
-          {{#if loggedIn}}
+          {{#if session.loggedIn}}
             <a href="/dashboard" class="nav-item">Dashboard</a>
             <a href="/logout" id="logout" class="nav-item">Logout</a>
           {{else}}
@@ -55,27 +55,29 @@
     </header>
 
     {{#if landing}}
-    <main class="w-screen mb-auto">
-      {{{body}}}
-    </main>
-    <div class="p-4">
-      <p class="text-center text-stone-800 text-sm md:text-base 2xl:text-lg">&copy; 2022
-        <a
-          class="hover:text-stone-300 transition-colors duration-300"
-          href="https://github.com/michael-rodriguez22"
-          target="_blank"
-          rel="noreferrer"
-        >Michael Rodriguez</a>
-      </p>
-    </div>
+      <main class="w-screen mb-auto">
+        {{{body}}}
+      </main>
+      <div class="p-4">
+        <p
+          class="text-center text-stone-800 text-sm md:text-base 2xl:text-lg"
+        >&copy; 2022
+          <a
+            class="hover:text-stone-300 transition-colors duration-300"
+            href="https://github.com/michael-rodriguez22"
+            target="_blank"
+            rel="noreferrer"
+          >Michael Rodriguez</a>
+        </p>
+      </div>
     {{else if dashboard}}
-    <main class="w-screen mt-6 mb-auto">
-      {{{body}}}
-    </main>
+      <main class="w-screen mt-6 mb-auto">
+        {{{body}}}
+      </main>
     {{else}}
-    <main class="container mx-auto my-6">
-      {{{body}}}
-    </main>
+      <main class="container mx-auto my-6">
+        {{{body}}}
+      </main>
     {{/if}}
 
     <footer class="bg-stone-600 py-3 px-6">
@@ -92,7 +94,7 @@
         <div class="nav-icon" id="scroll-icon" title="Scroll to top">
           <i class="fa fa-angle-up text-2xl"></i>
         </div>
-        <a 
+        <a
           class="nav-icon"
           href="mailto:michael-rodriguez22.work@gmail.com?subject=MVC-Tech-Blog"
           title="Contact site creator"
@@ -104,7 +106,7 @@
       </div>
     </footer>
     <script src="/js/nav.js"></script>
-    {{#if loggedIn}}
+    {{#if session.loggedIn}}
       <script src="/js/logout.js"></script>
     {{/if}}
   </body>

@@ -1,27 +1,9 @@
-const router = require("express").Router()
-const postRoutes = require("./postRoutes")
-const dashboardRoutes = require("./dashboardRoutes")
+const renderHome = ({ session }, res) => {
+  res.render("home", { session, landing: true })
+}
 
-router.get("/", (req, res) =>
-  res.render("home", {
-    loggedIn: req.session.loggedIn,
-    landing: true,
-    username: req.session.username,
-  })
-)
+const renderLogin = ({ session }, res) => {
+  session.loggedIn ? res.redirect("/") : res.render("login")
+}
 
-router.get("/login", (req, res) =>
-  req.session.loggedIn ? res.redirect("/") : res.render("login")
-)
-router.put("/login", (req, res) =>
-  req.session.loggedIn ? res.redirect("/") : res.render("login")
-)
-router.delete("/login", (req, res) =>
-  req.session.loggedIn ? res.redirect("/") : res.render("login")
-)
-
-router.use("/posts", postRoutes)
-
-router.use("/dashboard", dashboardRoutes)
-
-module.exports = router
+module.exports = { renderHome, renderLogin }
