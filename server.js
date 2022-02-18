@@ -11,7 +11,10 @@ const sequelize = require("./config/connection")
 const SequelizeStore = require("connect-session-sequelize")(session.Store)
 const sess = {
   secret: "super cooper",
-  cookie: {},
+  cookie: {
+    // 2 weeks
+    maxAge: 1000 * 60 * 60 * 24 * 14,
+  },
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({ db: sequelize }),
@@ -42,11 +45,12 @@ const { NODE_ENV = "development", PORT = 3003 } = process.env
     )
 
     // enable logging outside of production environment
-    sequelize.options.logging = NODE_ENV !== "production" ? console.log : false
+    if (NODE_ENV !== "production") {
+      sequelize.options.logging = console.log
+    }
 
     // sync models
-    console.log("\nSyncing models...".cyan.bold)
-    await sequelize.sync({ force: false })
+    await sequelize.sync({ force: true })
 
     // start server
     app.listen(PORT, () =>
